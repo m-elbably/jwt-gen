@@ -40,7 +40,7 @@ inquirer
             }
         },
         {
-            type: 'input',
+            type: 'password',
             name: 'secret',
             message: "JWT secret:",
             validate: function(value) {
@@ -70,7 +70,8 @@ inquirer
         const { payload, secret, expiration } = answers;
         createJwtToken(payload, secret, expiration)
             .then((key) => {
-                console.log(`\n ${key}`);
+                ui.log.write(chalkPipe('white')('\nJWT Token'));
+                ui.log.write(chalkPipe('bgCyan.black.bold')(key));
             });
     });
 
