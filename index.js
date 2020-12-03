@@ -5,13 +5,14 @@ const ui = new inquirer.ui.BottomBar();
 
 function createJwtToken(payload, secret, expiration = 0) {
     return new Promise((resolve, reject) => {
+        const jPayload = JSON.parse(payload);
         if(expiration > 0) {
             const currentTime = parseInt(new Date(Date.now()).getTime() / 1000);
             const expireAfter = parseInt(expiration / 1000);
-            payload.exp = currentTime + expireAfter;
+            jPayload.exp = currentTime + expireAfter;
         }
 
-        jwt.sign(payload, secret, (err, token) => {
+        jwt.sign(jPayload, secret, (err, token) => {
             if (err) {
                 return reject(err);
             }
